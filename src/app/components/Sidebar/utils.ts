@@ -8,7 +8,8 @@ export async function seedDocuments(
   splittingMethod: string,
   chunkSize: number,
   overlap: number,
-  usersDataAssignment: UserDataAssignments
+  usersDataAssignment: UserDataAssignments,
+  indexDate: string,
 ): Promise<void> {
   // setEntries((seeded: IUrlEntry[]) =>
   //   seeded.map((seed: IUrlEntry) => { ...seed, loading: true })
@@ -22,7 +23,8 @@ export async function seedDocuments(
         splittingMethod,
         chunkSize,
         overlap,
-        usersDataAssignment
+        usersDataAssignment,
+        indexDate,
       },
     }),
   });

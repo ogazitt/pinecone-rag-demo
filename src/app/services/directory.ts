@@ -114,12 +114,13 @@ export const getFilteredMatches = async (user: User | null, matches: ScoredPinec
     console.error('No user provided. Returning empty array.')
     return [];
   }
+  const emailAddress = user.emailAddresses?.find(e => e.id === user.primaryEmailAddressId)?.emailAddress;
 
   // Perform permission checks for each match concurrently
   const checks = await Promise.all(matches.map(async (match) => {
     // Construct permission request object
     const permissionRequest = {
-      subjectId: user.id, // ID of the user requesting access
+      subjectId: emailAddress ?? user.id, // user.id, // ID of the user requesting access
       subjectType: 'user', // Type of the subject requesting access
       objectId: match.id, // ID of the object access is requested for
       objectType: 'resource', // Type of the object access is requested for
@@ -127,7 +128,8 @@ export const getFilteredMatches = async (user: User | null, matches: ScoredPinec
     }
 
     // Check permission for the constructed request
-    const response = await directoryClient.checkPermission(permissionRequest);    
+    const response = await directoryClient.checkPermission(permissionRequest);
+
     // Return true if permission granted, false otherwise
     return response ? response.check : false
   }));
@@ -138,7 +140,7 @@ export const getFilteredMatches = async (user: User | null, matches: ScoredPinec
   // Identify matches where permission check failed
   const matchesThatFailed = matches.filter((match, index) => !checks[index]);
   // Log categories of matches that failed the permission check
-  console.log('Categories of matches that failed: ', matchesThatFailed.map(match => match.metadata?.category));
+  console.log('Titles of matches that failed: ', matchesThatFailed.map(match => match.metadata?.title));
 
   // Return matches that passed the permission check
   return filteredMatches

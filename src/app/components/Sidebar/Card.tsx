@@ -1,6 +1,6 @@
 import Popover from '@mui/material/Popover';
-import { PineconeRecord } from "@pinecone-database/pinecone";
-import { FC, useRef, useState } from "react";
+import { PineconeRecord } from '@pinecone-database/pinecone';
+import { FC, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 export interface ICard {
@@ -32,7 +32,7 @@ export const Card: FC<ICardProps> = ({ card, index, context }) => {
   return (
     <div
       id={card.id}
-      className={"mb-4"}
+      className={'mb-4'}
     >
       <div className="flex-col w-full">
         <div className="flex w-full">
@@ -41,7 +41,7 @@ export const Card: FC<ICardProps> = ({ card, index, context }) => {
             <button className="w-full" onMouseLeave={() => handleClose()} onMouseEnter={(event: React.MouseEvent<HTMLButtonElement>) => handleClick(event)}>
               <div className="markdown-container">
                 <ReactMarkdown
-                  disallowedElements={["img"]}
+                  disallowedElements={['img']}
                   className="markdown-content"
                   components={{ p: 'span' }}
                 >

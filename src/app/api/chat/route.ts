@@ -1,10 +1,14 @@
-import { ContextResponse, isContextResponse } from './../../services/context';
+import { ContextResponse, isContextResponse } from './../../services/context'
 import { Metadata, getContext } from '@/services/context'
 import type { PineconeRecord } from '@pinecone-database/pinecone'
-import { Message, OpenAIStream, StreamingTextResponse, experimental_StreamData } from 'ai'
+import {
+  Message,
+  OpenAIStream,
+  StreamingTextResponse,
+  experimental_StreamData
+} from 'ai'
 import { Configuration, OpenAIApi } from 'openai-edge'
-import { auth, currentUser } from '@clerk/nextjs';
-
+import { auth, currentUser } from '@clerk/nextjs'
 
 // Create an OpenAI API client (that's edge friendly!)
 const config = new Configuration({
@@ -17,27 +21,37 @@ export const runtime = 'nodejs'
 
 export async function POST(req: Request) {
   try {
-
-    const user = await currentUser();
+    const user = await currentUser()
 
     const { messages, withContext, messageId } = await req.json()
     // Get the last message
     const lastMessage = messages[messages.length - 1]
 
     // Get the context from the last message
-    const context = withContext ? await getContext({ message: lastMessage.content,
-      namespace: '',
-      maxTokens: 3000,
-      minScore: 0.8,
-      getOnlyText: false,
-      user 
-    }) : ''
+    const context = withContext
+      ? await getContext({
+        message: lastMessage.content,
+        namespace: '',
+        maxTokens: 3000,
+        minScore: 0.8,
+        getOnlyText: false,
+        user
+      })
+      : ''
 
-    const docs = isContextResponse(context) && (withContext && context.documents.length > 0) ? (context.documents as PineconeRecord[]).map(match => (match.metadata as Metadata).chunk) : [];
+    // OG 10-09-2024: need more than the chunk - prefer to seed the whole text value of the record
+    //const docs = isContextResponse(context) && (withContext && context.documents.length > 0) ? (context.documents as PineconeRecord[]).map(match => (match.metadata as Metadata).chunk) : [];
+    const docs =
+      isContextResponse(context) && withContext && context.documents.length > 0
+        ? (context.documents as PineconeRecord[]).map(
+          (match) => (match.metadata as Metadata).text
+        )
+        : []
 
     // Join all the chunks of text together, truncate to the maximum number of tokens, and return the result
-    const contextText = docs.join('\n').substring(0, 3000)
-
+    // OG 10-09-2024: increase the number of tokens to use in the context window
+    //const contextText = docs.join('\n').substring(0, 3000)
+    const contextText = docs.join('\n').substring(0, 10000)
 
     const prompt = [
       {
@@ -47,7 +61,7 @@ export async function POST(req: Request) {
       AI is a well-behaved and well-mannered individual.
       AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
       AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic in conversation.
-      AI assistant is a big fan of Pinecone and Vercel.
+      AI assistant is a big fan of Pinecone and Aserto.
       START CONTEXT BLOCK
       ${contextText}
       END OF CONTEXT BLOCK
@@ -55,46 +69,51 @@ export async function POST(req: Request) {
       If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer to that question".
       AI assistant will not apologize for previous responses, but instead will indicated new information was gained.
       AI assistant will not invent anything that is not drawn directly from the context.
-      `,
-      },
+      `
+      }
     ]
 
     const sanitizedMessages = messages.map((message: any) => {
-      const { createdAt, id, ...rest } = message;
-      return rest;
-    });
+      const { createdAt, id, ...rest } = message
+      return rest
+    })
 
     // Ask OpenAI for a streaming chat completion given the prompt
     const response = await openai.createChatCompletion({
       model: 'gpt-4',
       stream: true,
-      messages: [...prompt, ...sanitizedMessages.filter((message: Message) => message.role === 'user')]
+      messages: [
+        ...prompt,
+        ...sanitizedMessages.filter(
+          (message: Message) => message.role === 'user'
+        )
+      ]
     })
 
-    const data = new experimental_StreamData();
+    const data = new experimental_StreamData()
 
     const stream = OpenAIStream(response, {
       onFinal(completion) {
         // IMPORTANT! you must close StreamData manually or the response will never finish.
-        data.close();
+        data.close()
       },
       // IMPORTANT! until this is stable, you must explicitly opt in to supporting streamData.
-      experimental_streamData: true,
-    });
+      experimental_streamData: true
+    })
 
     if (withContext && isContextResponse(context)) {
-      const { documents, accessNotice, noMatches } = context;
-      data.append({ context: [...documents as PineconeRecord[]],
+      const { documents, accessNotice, noMatches } = context
+      data.append({
+        context: [...(documents as PineconeRecord[])],
         accessNotice,
-        noMatches });
+        noMatches
+      })
     }
 
     // IMPORTANT! If you aren't using StreamingTextResponse, you MUST have the `X-Experimental-Stream-Data: 'true'` header
     // in your response so the client uses the correct parsing logic.
-    return new StreamingTextResponse(stream, {}, data);
-
-
+    return new StreamingTextResponse(stream, {}, data)
   } catch (e) {
-    throw (e)
+    throw e
   }
 }

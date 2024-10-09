@@ -16,6 +16,7 @@ import { UserButton } from '@clerk/nextjs';
 
 import { useUser } from '@clerk/nextjs';
 import { ListAllUsers, type UserDataAssignments } from './Users';
+import { DatePicker } from './DatePicker';
 
 
 const styles: Record<string, React.CSSProperties> = {
@@ -67,6 +68,8 @@ export const Sidebar: React.FC = () => {
   const [crawlingDoneVisible, setCrawlingDoneVisible] = useState<boolean>(false)
   const [usersDataAssignment, setUserDataAssignments] = useState<UserDataAssignments>({});
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
+  const dateString = new Date(Date.now()).toLocaleDateString();
+  const [indexDate, setIndexDate] = useState<string>(dateString);
 
   const { refreshIndex } = useContext(AppContext);
 
@@ -126,7 +129,8 @@ export const Sidebar: React.FC = () => {
       splittingMethod,
       chunkSize,
       overlap,
-      usersDataAssignment
+      usersDataAssignment,
+      indexDate,
     )
 
     setCrawling(false)
@@ -190,6 +194,7 @@ export const Sidebar: React.FC = () => {
           </div>
           {isAdmin && <div>
             <ListAllUsers updateUserDataAssignments={setUserDataAssignments}/>
+            <DatePicker indexDate={indexDate} setIndexDate={setIndexDate} />
           </div>}
           {/* <h4 style={styles.h4}>Select demo url to index</h4> */}
           {/* <Select className="w-full" value={url} data-testid="url-selector" onChange={handleUrlChange} IconComponent={ExpandMoreIcon} MenuProps={{
