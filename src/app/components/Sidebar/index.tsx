@@ -179,7 +179,7 @@ export const Sidebar: React.FC = () => {
         <Header />
         <div style={{ marginTop: 24,
           marginBottom: 24 }}>
-          This RAG chatbot uses Pinecone and Vercel&apos;s AI SDK to demonstrate a URL crawl, data chunking and embedding, and semantic questioning.
+          This RAG chatbot uses Aserto and Pinecone to demonstrate indexing and embedding corporate documents, and semantic queries that respect document permissions.
         </div>
       </div>
       <div className="flex flex-column w-full" style={{ ...styles.textHeaderWrapper,
@@ -193,7 +193,7 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
           {isAdmin && <div>
-            <ListAllUsers updateUserDataAssignments={setUserDataAssignments}/>
+          {/* <ListAllUsers updateUserDataAssignments={setUserDataAssignments}/> */}
             <DatePicker indexDate={indexDate} setIndexDate={setIndexDate} />
           </div>}
           {/* <h4 style={styles.h4}>Select demo url to index</h4> */}
