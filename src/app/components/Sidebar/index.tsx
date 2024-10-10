@@ -193,7 +193,7 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
           {isAdmin && <div>
-          {/* <ListAllUsers updateUserDataAssignments={setUserDataAssignments}/> */}
+            {/* <ListAllUsers updateUserDataAssignments={setUserDataAssignments}/> */}
             <DatePicker indexDate={indexDate} setIndexDate={setIndexDate} />
           </div>}
           {/* <h4 style={styles.h4}>Select demo url to index</h4> */}

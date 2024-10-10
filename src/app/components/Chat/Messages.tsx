@@ -38,7 +38,8 @@ export default function Messages({
 
   // Handle close function
   const handleClose = (messageId: string, chunkId: string) => {
-    setAnchorEls((prev) => ({ ...prev, [`${messageId}-${chunkId}`]: null }))
+    setAnchorEls((prev) => ({ ...prev,
+      [`${messageId}-${chunkId}`]: null }))
   }
 
   const styles = {
@@ -59,18 +60,20 @@ export default function Messages({
             {withContext ? (
               <>
                 <div className="flex justify-center">
-                <AsertoLogoSvg width="100" height="40" />
-                {' '}
-                <div className="text-3xl ml-3 mr-3 text-gray-300">/</div>
-                {' '}
-                <PineconeLogoSvg />
+                  <AsertoLogoSvg width="100" height="40" />
+                  {' '}
+                  <div className="text-3xl ml-3 mr-3 text-gray-300">/</div>
+                  {' '}
+                  <PineconeLogoSvg />
                 </div>
-                <div style={{ ...styles.lightGrey, ...styles.placeholder }}>
+                <div style={{ ...styles.lightGrey,
+                  ...styles.placeholder }}>
                   This is your chatbot powered by Aserto and Pinecone
                 </div>
               </>
             ) : (
-              <div style={{ ...styles.lightGrey, ...styles.placeholder }}>
+              <div style={{ ...styles.lightGrey,
+                ...styles.placeholder }}>
                 Compare to a chatbot without context
               </div>
             )}
@@ -170,7 +173,8 @@ export default function Messages({
                           >
                             <div key={index} className="p-2">
                               <Typography
-                                sx={{ fontSize: 12, fontWeight: 400 }}
+                                sx={{ fontSize: 12,
+                                  fontWeight: 400 }}
                               >
                                 {chunk.metadata?.chunk}
                               </Typography>
@@ -184,13 +188,14 @@ export default function Messages({
                 {!withContext &&
                   message.role === 'assistant' &&
                   index == messages.length - 1 && (
-                    <div
-                      className="mt-1"
-                      style={{ color: '#72788D', fontSize: 12 }}
-                    >
+                  <div
+                    className="mt-1"
+                    style={{ color: '#72788D',
+                      fontSize: 12 }}
+                  >
                       This answer may be speculative or inaccurate.
-                    </div>
-                  )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
