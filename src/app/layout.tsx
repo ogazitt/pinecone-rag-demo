@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Pinecone - Vercel AI SDK Example',
-  description: 'Pinecone - Vercel AI SDK Example',
+  title: 'Aserto - Pinecone RAG Example',
+  description: 'Aserto - Pinecone RAG Example',
 };
 
 import { Inter } from 'next/font/google';
