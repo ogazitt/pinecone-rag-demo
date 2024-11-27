@@ -1,11 +1,10 @@
 import type { CategorizedRecordMetadata } from '@/api/seed/seed';
 import {
   DirectoryServiceV3,
-  createAsyncIterable,
+  createImportRequest,
   readAsyncIterable,
   ImportMsgCase,
   ImportOpCode,
-  objectPropertiesAsStruct
 } from '@aserto/aserto-node';
 import type { User } from '@clerk/nextjs/dist/types/server';
 import type { PineconeRecord, ScoredPineconeRecord } from '@pinecone-database/pinecone';
@@ -35,11 +34,11 @@ export const assignRelation = async (user: User, documents: PineconeRecord<Categ
     const userObject = {
       id: user.id,
       type: 'user',
-      properties: objectPropertiesAsStruct({
+      properties: {
         email: user.emailAddresses[0].emailAddress,
         name: userName,
         picture: user.imageUrl,
-      }),
+      },
       displayName: userName
     };
 
@@ -47,10 +46,10 @@ export const assignRelation = async (user: User, documents: PineconeRecord<Categ
     const documentObject = {
       id: document.id,
       type: 'resource',
-      properties: document.metadata ? objectPropertiesAsStruct({
+      properties: document.metadata ? {
         url: document.metadata.url,
         category: document.metadata.category,
-      }) : objectPropertiesAsStruct({}),
+      } : {},
       displayName: document.metadata && document.metadata.title ? document.metadata.title as string : '',
     };
 
@@ -96,7 +95,7 @@ export const assignRelation = async (user: User, documents: PineconeRecord<Categ
 
   try {
     // Create an async iterable from the operations and import them to the directory service
-    const importRequest = createAsyncIterable(operations);
+    const importRequest = createImportRequest(operations);
     const resp = await directoryClient.import(importRequest);
     // Read and return the result of the import operation
     const result = await (readAsyncIterable(resp))
@@ -124,11 +123,11 @@ export const getFilteredMatches = async (user: User | null, matches: ScoredPinec
       subjectType: 'user', // Type of the subject requesting access
       objectId: match.id, // ID of the object access is requested for
       objectType: 'resource', // Type of the object access is requested for
-      permission: 'can_read', // Specific permission being checked
+      relation: 'can_read', // Specific permission being checked
     }
 
     // Check permission for the constructed request
-    const response = await directoryClient.checkPermission(permissionRequest);
+    const response = await directoryClient.check(permissionRequest);
 
     // Return true if permission granted, false otherwise
     return response ? response.check : false

@@ -11,7 +11,7 @@
     "test:show": "playwright show-report"
   },
   "dependencies": {
-    "@aserto/aserto-node": "^0.32.2",
+    "@aserto/aserto-node": "0.33.1-rc.1",
     "@clerk/nextjs": "^4.29.10",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

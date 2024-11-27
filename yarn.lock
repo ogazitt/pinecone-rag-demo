@@ -15,28 +15,32 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@aserto/aserto-node@^0.32.2":
-  version "0.32.10"
-  resolved "https://registry.yarnpkg.com/@aserto/aserto-node/-/aserto-node-0.32.10.tgz#a330ba2da24e5731262c4ba634bc1ebaed29b779"
-  integrity sha512-PK667fMqhwBp/753OXrH+/lU3pOD8eHDrQz2suF2QdKxvInaDan704AOTPSENVrtel0f2l35j18RzbEefbIJ1A==
+"@aserto/aserto-node@0.33.1-rc.1":
+  version "0.33.1-rc.1"
+  resolved "https://registry.yarnpkg.com/@aserto/aserto-node/-/aserto-node-0.33.1-rc.1.tgz#f2662f2b4e9b7a6f9628d4f0d822746bbd3e8b0e"
+  integrity sha512-6Unr27BQ/D+crtTcGn35NxMMGnIXTB0Cbu4WLuE62IS4jops4CxFoXdxi0Kt1ehSf7rKEd7yV3rA4AJg7TTTxw==
   dependencies:
-    "@aserto/node-authorizer" "^0.20.10"
-    "@aserto/node-directory" "^0.31.4"
-    "@bufbuild/protobuf" "^1.10.0"
-    "@connectrpc/connect" "^1.5.0"
-    "@connectrpc/connect-node" "^1.5.0"
-    express "^4.21.0"
-    jwt-decode "^3.1.2"
+    "@aserto/node-authorizer" "^0.21.0"
+    "@aserto/node-directory" "^0.32.0"
+    "@bufbuild/protobuf" "^2.2.2"
+    "@connectrpc/connect" "^2.0.0"
+    "@connectrpc/connect-node" "^2.0.0"
+    express "^4.21.1"
+    jwt-decode "^4.0.0"
 
-"@aserto/node-authorizer@^0.20.10":
-  version "0.20.10"
-  resolved "https://registry.yarnpkg.com/@aserto/node-authorizer/-/node-authorizer-0.20.10.tgz#0a83f8e4fd13015b4af6a384a17d501469b17ee3"
-  integrity sha512-8rvZw6ZJZSzrPm+0Vfju15ax1bi4Ero2cHt/v8XqB0rtO+ugVG8xIFhqvC5Qu7QsF471skgeo85m1H9WE7MaLA==
+"@aserto/node-authorizer@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@aserto/node-authorizer/-/node-authorizer-0.21.0.tgz#6254901f096ba2dd1c68b76dcd5766cf154ff276"
+  integrity sha512-95Wg/ic5kfGca8/IBURvIZrUCLMLtu4boj7RzhLQ7CdtWGCjACGu2huGNdtRZTeh2YCsbRVXyAD85zZ5uZ++Zg==
+  dependencies:
+    "@bufbuild/protobuf" "^2.2.2"
 
-"@aserto/node-directory@^0.31.4":
-  version "0.31.4"
-  resolved "https://registry.yarnpkg.com/@aserto/node-directory/-/node-directory-0.31.4.tgz#3005f91a28fc35bd6d250d2c23c3e2482b1f76d0"
-  integrity sha512-BkMWJD8XCQsIo8LmCY4bePwjw9Kw50yTkmDRI+hYpYOog6+t7YtwPVHDjmh8VzGQRRbouoYthLPhX+MdnhWUgw==
+"@aserto/node-directory@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@aserto/node-directory/-/node-directory-0.32.0.tgz#24274b33379812fb72e6fff728fc7797f2a0ae2c"
+  integrity sha512-UL63F44bZ9ryJMspzAQxoRlpS90AluhkOUZ4bN9e550h5EQN26cTikRQdQQeq+RJgU0R2l2asdvvA0rGvdswdw==
+  dependencies:
+    "@bufbuild/protobuf" "^2.2.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.25.7":
   version "7.25.7"
@@ -129,10 +133,10 @@
     "@babel/helper-validator-identifier" "^7.25.7"
     to-fast-properties "^2.0.0"
 
-"@bufbuild/protobuf@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.10.0.tgz#1a67ac889c2d464a3492b3e54c38f80517963b16"
-  integrity sha512-QDdVFLoN93Zjg36NoQPZfsVH9tZew7wKDKyV5qRdj8ntT4wQCOradQjRaTdwMhWUYsgKsvCINKKm87FdEk96Ag==
+"@bufbuild/protobuf@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-2.2.2.tgz#1a6d89603fb215dc4d4178052d05b30b83c75402"
+  integrity sha512-UNtPCbrwrenpmrXuRwn9jYpPoweNXj8X5sMvYgsqYyaH8jQ6LfUJSk3dJLnBK+6sfYPrF4iAIo5sd5HQ+tg75A==
 
 "@clerk/backend@0.38.13":
   version "0.38.13"
@@ -201,17 +205,15 @@
   dependencies:
     csstype "3.1.1"
 
-"@connectrpc/connect-node@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-1.5.0.tgz#cd2246321e9e8912265ac29ea42b9dbcffa2d2d7"
-  integrity sha512-go27+V6c6/YOGMXUs7d1NbXnGpMJl5fKYfMtbBKDs9azZTg/tW9q5S0iw9upZs43bOPV8YnJAWmTW9n1Te9NAw==
-  dependencies:
-    undici "^5.28.4"
+"@connectrpc/connect-node@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-2.0.0.tgz#1ea4eff7f2633fbe3d80378e1420bd213d9d83a4"
+  integrity sha512-DoI5T+SUvlS/8QBsxt2iDoUg15dSxqhckegrgZpWOtADtmGohBIVbx1UjtWmjLBrP4RdD0FeBw+XyRUSbpKnJQ==
 
-"@connectrpc/connect@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.5.0.tgz#5877336746c99f2d6cbdc11c77ff9bdfd2187883"
-  integrity sha512-1gGg0M6c2Y3lnr5itis9dNj9r8hbOIuBMqoGSbUy7L7Vjw4MAttjJzJfj9HCDgytGCJkGanYEYI6MQVDijdVQw==
+"@connectrpc/connect@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-2.0.0.tgz#0a34d934bdce5fd3723f79b70aa843d4c1213df8"
+  integrity sha512-Usm8jgaaULANJU8vVnhWssSA6nrZ4DJEAbkNtXSoZay2YD5fDyMukCxu8NEhCvFzfHvrhxhcjttvgpyhOM7xAQ==
 
 "@emotion/babel-plugin@^11.12.0":
   version "11.12.0"
@@ -363,11 +365,6 @@
   version "8.56.0"
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.56.0.tgz#ef20350fec605a7f7035a01764731b2de0f3782b"
   integrity sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==
-
-"@fastify/busboy@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.1.1.tgz#b9da6a878a371829a0502c9b6c1c143ef6663f4d"
-  integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
 
 "@floating-ui/core@^1.6.0":
   version "1.6.8"
@@ -1738,10 +1735,10 @@ cookie@0.5.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
   integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
 
-cookie@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.6.0.tgz#2798b04b071b0ecbff0dbb62a505a8efa4e19051"
-  integrity sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==
+cookie@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.7.1.tgz#2f73c42142d5d5cf71310a74fc4ae61670e5dbc9"
+  integrity sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==
 
 cosmiconfig@^7.0.0:
   version "7.1.0"
@@ -2483,17 +2480,17 @@ eventsource-parser@1.0.0:
   resolved "https://registry.yarnpkg.com/eventsource-parser/-/eventsource-parser-1.0.0.tgz#6332e37fd5512e3c8d9df05773b2bf9e152ccc04"
   integrity sha512-9jgfSCa3dmEme2ES3mPByGXfgZ87VbP97tng1G2nWwWx6bV2nYxm2AWCrbQjXToSe+yYlqaZNtxffR9IeQr95g==
 
-express@^4.21.0:
-  version "4.21.0"
-  resolved "https://registry.yarnpkg.com/express/-/express-4.21.0.tgz#d57cb706d49623d4ac27833f1cbc466b668eb915"
-  integrity sha512-VqcNGcj/Id5ZT1LZ/cfihi3ttTn+NJmkli2eZADigjq29qTlWi/hAQ43t/VLPq8+UX06FCEx3ByOYet6ZFblng==
+express@^4.21.1:
+  version "4.21.1"
+  resolved "https://registry.yarnpkg.com/express/-/express-4.21.1.tgz#9dae5dda832f16b4eec941a4e44aa89ec481b281"
+  integrity sha512-YSFlK1Ee0/GC8QaO91tHcDxJiE/X4FbpAyQWkxAvG6AXCuR65YzK8ua6D9hvi/TzUfZMpc+BwuM1IPw8fmQBiQ==
   dependencies:
     accepts "~1.3.8"
     array-flatten "1.1.1"
     body-parser "1.20.3"
     content-disposition "0.5.4"
     content-type "~1.0.4"
-    cookie "0.6.0"
+    cookie "0.7.1"
     cookie-signature "1.0.6"
     debug "2.6.9"
     depd "2.0.0"
@@ -3374,10 +3371,10 @@ json5@^1.0.2:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-jwt-decode@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
-  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+jwt-decode@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-4.0.0.tgz#2270352425fd413785b2faf11f6e755c5151bd4b"
+  integrity sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==
 
 keyv@^4.5.3:
   version "4.5.4"
@@ -5257,13 +5254,6 @@ undici-types@~6.19.2:
   version "6.19.8"
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.19.8.tgz#35111c9d1437ab83a7cdc0abae2f26d88eda0a02"
   integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
-
-undici@^5.28.4:
-  version "5.28.4"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.28.4.tgz#6b280408edb6a1a604a9b20340f45b422e373068"
-  integrity sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==
-  dependencies:
-    "@fastify/busboy" "^2.0.0"
 
 undici@^6.19.5:
   version "6.19.8"
