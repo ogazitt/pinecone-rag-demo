@@ -106,6 +106,7 @@ export const assignRelation = async (user: User, documents: PineconeRecord<Categ
     throw error;
   }
 }
+/*
 export const getFilteredMatches = async (user: User | null, matches: ScoredPineconeRecord[], permission: Permission) => {  
 
   // Check if a user object is provided
@@ -132,6 +133,68 @@ export const getFilteredMatches = async (user: User | null, matches: ScoredPinec
     // Return true if permission granted, false otherwise
     return response ? response.check : false
   }));
+
+  // Filter matches where permission check passed
+  const filteredMatches = matches.filter((match, index) => checks[index]);
+
+  // Identify matches where permission check failed
+  const matchesThatFailed = matches.filter((match, index) => !checks[index]);
+  // Log categories of matches that failed the permission check
+  console.log('Titles of matches that failed: ', matchesThatFailed.map(match => match.metadata?.title));
+
+  // Return matches that passed the permission check
+  return filteredMatches
+}
+*/
+export const getFilteredMatches = async (user: User | null, matches: ScoredPineconeRecord[], permission: Permission) => {
+
+  // Check if a user object is provided
+  if (!user) {
+    console.error('No user provided. Returning empty array.')
+    return [];
+  }
+  const emailAddress = user.emailAddresses?.find(e => e.id === user.primaryEmailAddressId)?.emailAddress;
+
+  const evaluations = matches.map((match) => {
+    return {
+      resource: {
+        id: match.id, // ID of the object access is requested for
+        type: 'resource', // Type of the object access is requested for
+      }
+    }
+  });
+  const payload = {
+    subject: {
+      id: emailAddress ?? user.id, // user.id, // ID of the user requesting access
+      type: 'user', // Type of the subject requesting access
+    },
+    action: {
+      name: 'can_read', // Specific permission being checked
+    },
+    evaluations,
+  };
+
+  const results = await fetch (`${process.env.ASERTO_DIRECTORY_SERVICE_URL}/access/v1/evaluations`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `basic ${process.env.ASERTO_DIRECTORY_API_KEY}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await results.json();
+  if (!results.ok) {
+    console.error('Error fetching permission checks: ', json);
+    throw new Error('Error fetching permission checks');
+  }
+  // Check if the response contains evaluations
+  if (!json.evaluations && !json.decisions) {
+    console.error('Error retrieving evaluations / decisions', json);
+    throw new Error('Error retrieving evaluations / decisions');
+  }
+  const decisions = json.evaluations || json.decisions;
+  const checks = decisions.map((e: { decision: boolean; }) => e.decision);
 
   // Filter matches where permission check passed
   const filteredMatches = matches.filter((match, index) => checks[index]);
