@@ -5,7 +5,12 @@ import axios from 'axios'
 export async function POST() {
   try {
     const url = process.env.RAG_SERVICE
-    await axios.post(`${url}/clear`)
+    await axios.post(`${url}/clear`, {},
+      {
+        headers: {
+          'Authorization': `basic ${process.env.ASERTO_DIRECTORY_API_KEY}`
+        }
+      })
   } catch (error) {
     console.error('Error deleting index:', error)
   }

@@ -87,6 +87,12 @@ async function seed(indexName: string, options: SeedOptions) {
     const url = process.env.RAG_SERVICE
     const response = await axios.post(`${url}/index`, {
       indexDate
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `basic ${process.env.ASERTO_DIRECTORY_API_KEY}`
+      }
     })
 
     return response
